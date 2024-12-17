@@ -8,9 +8,9 @@ export interface Area {
 } 
 
 export interface CreateAreaRequestDto {
-    nombre: string;
-    ubicacion: string;
-    descripcion: string;
+    Nombre: string;
+    Ubicacion: string;
+    Descripcion: string;
 } 
 
 

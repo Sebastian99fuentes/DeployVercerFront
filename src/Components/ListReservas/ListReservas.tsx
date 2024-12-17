@@ -1,39 +1,177 @@
-import React, { SyntheticEvent } from 'react'
-import CardReservas from '../CardReservas/CardReservas';
+import  {  useEffect, useState } from 'react'
+import CardReservas from './ReservasUserArea/CardReservas';
+import { ReservasAreasUserDto } from '../../Services/Models/ReservaArea/Reserva';
+import Swal from 'sweetalert2';
+import { ReservaAreasByUserGet, ReservaAreasDelete } from '../../Services/Api/ReservasAreaApi/ReservasAreaApi';
 
-interface Props  {
+import {  ReservasImplementoUserDto } from '../../Services/Models/ReservaImplementos/ReservaImplementos';
+import { ReservaImplementoByUserGet, ReservaImplementoDelete } from '../../Services/Api/ReservasImplementosApi/ReservasImplementosApi';
+import CardReservasImplementos from './ReservasUserImplementos/CardReservasImplementos';
 
-    reservaValues: string[];
-    onReservaDelete:(e: SyntheticEvent) => void;
-}
 
-const ListReservas = ({reservaValues, onReservaDelete}: Props) => {
-  return (
-<section id="portfolio">
+const ListReservas = () => {
+    const [reservaValues, setReservaValues] = useState<ReservasAreasUserDto[]>([]); // Estado para reservas
+    const [reserImplevaValues, setreserImplevaValues] = useState<ReservasImplementoUserDto[]>([]); // Estado para reservas
+    const [loading, setLoading] = useState<boolean>(true); // Estado de carga
+
+    useEffect(() => {
+        const fetchEvents = async () => {
+            setLoading(true);
+            try {
+                const response = await ReservaAreasByUserGet();
+                console.log("Respuesta del servidor:", response);
+
+                if (typeof response === 'string') {
+                    Swal.fire('Error', `No se pudieron cargar las reservas: ${response}`, 'error');
+                } else if (Array.isArray(response)) {
+                    setReservaValues(response); // Actualiza las reservas
+                }
+            } catch (error) {
+                console.error('Error al cargar las reservas:', error);
+                Swal.fire('Error', 'No se pudo cargar las reservas.', 'error');
+            } finally {
+                setLoading(false);
+            }
+
+            try{
+              const response = await ReservaImplementoByUserGet();
+              console.log("Respuesta del servidor:", response);
+              if (typeof response === 'string') {
+                Swal.fire('Error', `No se pudieron cargar las reservas: ${response}`, 'error');
+            } else if (Array.isArray(response)) {
+              setreserImplevaValues(response); // Actualiza las reservas
+            }
+            }catch(error){
+              console.error('Error al cargar las reservas:', error);
+              Swal.fire('Error', 'No se pudo cargar las reservas.', 'error');
+            }
+        };
+
+        fetchEvents();
+    }, []);
+
+    const onReservaDelete = async (id: string) => {
+
+          const result = await Swal.fire({
+              title: '¿Estás seguro?',
+              text: "No podrás revertir esta acción.",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Sí, eliminar',
+              cancelButtonText: 'Cancelar',
+          });
+          if (result.isConfirmed) {
+            try {
+
+                const result = await ReservaAreasDelete(id);
+                console.log("result es",result)
+                if (result==="") {
+                    Swal.fire('Éxito', `Reserva eliminada`, 'success');
+                    const updatedReservas = reservaValues.filter((reserva) => reserva.id !== id);
+                    console.log("updatedReservas es",updatedReservas)
+                    setReservaValues(updatedReservas);
+                } else {
+                    Swal.fire('Error', 'No se pudo eliminar la reserva.', 'error');
+                }
+            } catch (error) {
+                console.error('Error al eliminar la reserva:', error);
+                Swal.fire('Error', 'No se pudo eliminar la reserva.', 'error');
+            }
+
+          }
+    
+    };
+
+
+    const onReservaDeleteImple = async (id: string) => {
+        const result = await Swal.fire({
+            title: '¿Estás seguro?',
+            text: "No podrás revertir esta acción.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar',
+        });
+        if (result.isConfirmed) { 
+            try {
+                const result = await ReservaImplementoDelete(id);
+                console.log("result es",result)
+                if (result==="") {
+                    Swal.fire('Éxito', `Reserva eliminada: ${result}`, 'success');
+                    const updatedReservas = reserImplevaValues.filter((reserva) => reserva.id !== id);
+                    console.log("updatedReservas es",updatedReservas)
+                    setreserImplevaValues(updatedReservas);
+                } else {
+                    Swal.fire('Error', 'No se pudo eliminar la reserva.', 'error');
+                }
+            } catch (error) {
+                console.error('Error al eliminar la reserva:', error);
+                Swal.fire('Error', 'No se pudo eliminar la reserva.', 'error');
+            }
+        }
+
+};
+
+    return (<>
+      <div className="flex flex-col min-h-screen">
+
       <h2 className="mb-3 mt-3 text-3xl font-semibold text-center md:text-4xl">
-        mis reservas
-      </h2>
-      <div className="relative flex flex-col items-center max-w-5xl mx-auto space-y-10 px-10 mb-5 md:px-6 md:space-y-0 md:space-x-7 md:flex-row">
-        <>
-          {reservaValues.length > 0 ? (
-            reservaValues.map((reservaValues) => {
-              return (
+         Áreas Reservadas
+    </h2>
+    <div className="flex flex-wrap justify-center gap-6 p-4">
+        {loading ? (
+            <p className="text-center">Cargando reservas...</p>
+        ) : reservaValues.length > 0 ? (
+            reservaValues.map((reserva) => (
                 <CardReservas
-                reservaValue={reservaValues}
-                onReservaDelete={onReservaDelete}
+                    key={reserva.id}
+                    events={reserva}
+                    onReservaDelete={onReservaDelete}
                 />
-              );
-            })
-          ) : (
+            ))
+        ) : (
             <h3 className="mb-3 mt-3 text-xl font-semibold text-center md:text-xl">
-               Ninguna reserva
+                Ninguna reserva
             </h3>
-          )}
-        </>
+        )}
+    </div>
+
+    <h2 className="mb-3 mt-3 text-3xl font-semibold text-center md:text-4xl">
+         Implementos Reservados
+    </h2>
+    <div className="flex flex-wrap justify-center gap-6 p-4">
+        {loading ? (
+            <p className="text-center">Cargando reservas...</p>
+        ) : reserImplevaValues.length > 0 ? (
+            reserImplevaValues.map((reservas) => (
+                
+                <CardReservasImplementos
+                    key={reservas.id}
+                    events={reservas}
+                    onReservaDelete={onReservaDeleteImple}
+                />
+            ))
+        ) : (
+            <h3 className="mb-3 mt-3 text-xl font-semibold text-center md:text-xl">
+                Ninguna reserva
+            </h3>
+        )}
+    </div>
+    
+    
+    
+
       </div>
-    </section>
+    
+    
+    </>
 
-  )
-}
 
-export default ListReservas
+    );
+};
+
+export default ListReservas;

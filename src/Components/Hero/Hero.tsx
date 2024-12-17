@@ -6,30 +6,38 @@ import { Link } from "react-router";
 interface Props {}
 const Hero = (props: Props) => {
     return (
-        <section id="hero">
-          <div className="container flex flex-col-reverse mx-auto p-8 lg:flex-row">
-            <div className="flex flex-col space-y-10 mb-44 m-10 lg:m-10 xl:m-20 lg:mt:16 lg:w-1/2 xl:mb-52">
-              <h1 className="text-5xl font-bold text-center lg:text-6xl lg:max-w-md lg:text-left">
-                Reserva de Implementos y Áreas Deportivas.
-              </h1>
-              <p className="text-2xl text-center text-gray-400 lg:max-w-md lg:text-left">
-                Organiza tu tiempo y accede fácilmente a las mejores canchas y equipos sin preocupaciones.
-              </p>
-              <div className="mx-auto lg:mx-0">
-                <Link
-                  to="/search"
-                  className="py-5 px-10 text-2xl font-bold text-white bg-lightGreen rounded lg:py-4 hover:opacity-70"
-                >
-                  Comienza a Reservar
-                </Link>
-              </div>
-            </div>
-            <div className="mb-24 mx-auto md:w-180 md:px-10 lg:mb-0 lg:w-1/2">
-              <img src={hero2} alt="Reserva de implementos y áreas" />
-            </div>
-            
-          </div>
-        </section>
+      <section id="hero" className="py-12">
+  <div className="container flex flex-col-reverse mx-auto px-6 lg:flex-row lg:items-center">
+    {/* Texto del Hero */}
+    <div className="flex flex-col space-y-6 mb-12 lg:mb-0 lg:w-1/2 lg:pr-10">
+      <h1 className="text-4xl font-bold text-center lg:text-5xl lg:text-left">
+        Reserva de Implementos y Áreas Deportivas
+      </h1>
+      <p className="text-lg text-center text-gray-600 lg:text-left">
+        Organiza tu tiempo y accede fácilmente a las mejores canchas y equipos 
+        sin preocupaciones. ¡Optimiza tu experiencia deportiva!
+      </p>
+      <div className="flex justify-center lg:justify-start">
+        <Link
+          to="/search"
+          className="py-3 px-6 text-lg font-bold text-white bg-lightGreen rounded hover:opacity-80"
+        >
+          Comienza a Reservar
+        </Link>
+      </div>
+    </div>
+
+    {/* Imagen del Hero */}
+    <div className="lg:w-1/2 flex justify-center">
+      <img
+        src={hero2}
+        alt="Reserva de implementos y áreas"
+        className="w-full max-w-md lg:max-w-lg"
+      />
+    </div>
+  </div>
+</section>
+
       );
       
 };

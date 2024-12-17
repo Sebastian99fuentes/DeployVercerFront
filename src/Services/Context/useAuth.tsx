@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { registerAPI, loginAPI } from "../Api/AuthService/AuthService";
 import { UserProfile } from "../Models/Login/Logins";
+import { jwtDecode } from "jwt-decode";
 
 type UserContextType = {
     user: UserProfile | null;
@@ -18,7 +19,7 @@ type Props = {children: React.ReactNode};
 
 const UserContext = createContext<UserContextType>({} as UserContextType);
 
-export const UserPROVIDER =({children}: Props) => {
+export const UserProvider =({children}: Props) => {
 
     const navigate = useNavigate();
     const [ token, setToken] = useState<string | null>(null);
@@ -31,11 +32,12 @@ export const UserPROVIDER =({children}: Props) => {
         if(user && token){
             setUser(JSON.parse(user))
             setToken(token);
-            axios.defaults.headers.common["Authorization"] = "Bearer" + token;        }
+            axios.defaults.headers.common["Authorization"] = "Bearer" + token;      
+         }
         setIsReady(true);
     },[])
 
-    const registerUser = async (
+const registerUser = async (
         email: string, 
         username:string, 
         password:string
@@ -45,7 +47,8 @@ export const UserPROVIDER =({children}: Props) => {
                 localStorage.setItem("token",res?.data.token);
                 const userObj = {
                     userName: res?.data.userName,
-                    email: res?.data.email
+                    email: res?.data.email,
+                    id: res?.data.id
                 }
                 localStorage.setItem("user",JSON.stringify(userObj))
                 setToken(res?.data.token!)
@@ -56,17 +59,21 @@ export const UserPROVIDER =({children}: Props) => {
         }).catch((e)=> toast.warning("server error occured"))
     }
 
-    const loginUser = async (
+const loginUser = async (
        
         username:string, 
         password:string
     ) =>{
         await loginAPI(username,password).then((res)=>{
             if(res){
+                const token = res?.data.token;
+                const decodedToken: any = jwtDecode(token);
+
                 localStorage.setItem("token",res?.data.token);
                 const userObj = {
                     userName: res?.data.userName,
-                    email: res?.data.email
+                    email: res?.data.email,
+                    userId: decodedToken.userId, // Extraído del token
                 }
                 localStorage.setItem("user",JSON.stringify(userObj))
                 setToken(res?.data.token!)

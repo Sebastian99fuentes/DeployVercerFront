@@ -1,0 +1,16 @@
+  
+  .buttonCrud[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .buttonCrud[type="submit"]:hover {
+    background-color: #218838;
+  }
+  

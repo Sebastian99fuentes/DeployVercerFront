@@ -1,48 +1,73 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
-import { Area, Areas } from '../../Services/Models/Area/Area';
-import { getAllAreas, getAllAreas2 } from '../../Services/api';
-import CardReservas from '../../Components/CardReservas/CardReservas';
-import { GetAllAreas, getAreas2 } from '../../Services/Api/AreApi/AreaApi';
-
-interface Props  {}
-
-const AreasPage = (props: Props) => {
-
- // Estado para las áreas
- const [areas, setAreas] = useState<Area[]>([]);
-
- // Llama a la API y actualiza el estado
- useEffect(() => {
-     const AllAreasInit = async () => {
-         const result = await getAreas2(); // Obtén las áreas
-         setAreas(result); // Actualiza el estado
-     };
-
-     AllAreasInit();
- }, []); // El arreglo vacío asegura que esto se ejecute una vez al montar.
-
- // Observa los cambios en `areas`
- useEffect(() => {
-     console.log("Areas updated:", areas);
- }, [areas]); // Este efecto se ejecuta cada vez que `areas` cambie. 
+import  { useEffect, useState } from 'react'
+import { Area,  } from '../../Services/Models/Area/Area';
+import { AreasGet } from '../../Services/Api/AreApi/AreaApi';
+import AreaCard from '../../Components/AreaComponents/AreaCard/AreaCard';
+import Spinners from '../../Components/Spinners/Spinners';
 
 
-  return<>
-     
-            <h1>Áreas Disponibles</h1>
-            {areas.length > 0 ? (
-                <ul>
-                    {areas.map((area) => (
-                        <li key={area.id}>
-                            <strong>{area.nombre}</strong>: {area.descripcion} - {area.ubicacion}
-                        </li>
-                    ))}
-                </ul>
+const AreasPage = () => {
+    // Estado para las áreas
+    const [areas, setAreas] = useState<Area[]>([]);
+    const [serverError, setServerError] = useState<string | null>(null); // Estado para el error
+    const [loading, setLoading] = useState<boolean>(true); // Estado para el spinner
+  
+    useEffect(() => {
+        const fetchAreas = async () => {
+          setLoading(true); // Inicia el spinner
+          try {
+            const result = await AreasGet(); // Llama a la API
+            if (typeof result === "string") {
+              setServerError(result); // Maneja errores en formato string
+            } else if (Array.isArray(result)) {
+              setAreas(result); // Actualiza las áreas si el resultado es válido
+            }
+          } catch (error) {
+            // Manejo de errores inesperados
+            console.error("Error inesperado:", error);
+            setServerError("Error al conectar con el servidor. Inténtalo más tarde.");
+          } finally {
+            setLoading(false); // Detén el spinner siempre, sea éxito o error
+          }
+        };
+      
+        fetchAreas(); // Ejecuta la función
+      }, []); // Ejecutar una vez al montar el componente
+      
+    useEffect(() => {
+      console.log("Áreas actualizadas:", areas);
+    }, [areas]);
+  
+    return (
+      <>
+        <div className="flex flex-col min-h-screen">
+
+        <h1 className="text-center text-4xl font-bold text-gray-800">Áreas Disponibles</h1>
+        {loading ? (
+          // Mostrar spinner mientras está cargando
+          <div className="flex flex-wrap justify-center gap-6 p-4">
+            <Spinners />
+          </div>
+        ) : areas.length > 0 ? (
+          // Mostrar áreas si se obtuvieron con éxito
+          <div className="flex flex-wrap justify-center gap-6 p-4">
+            {areas.map((area) => (
+              <AreaCard key={area.id} searchResults={area} />
+            ))}
+          </div>
+        ) : (
+          // Mostrar mensaje de error si la API está caída
+          <div className="flex flex-wrap justify-center gap-6 p-4">
+            {serverError ? (
+              <h1 className="text-red-500 text-xl">{serverError}</h1>
             ) : (
-                <p>No hay áreas disponibles</p>
+              <h1>No hay áreas disponibles</h1>
             )}
-  </>
-};
-
-export default AreasPage
+          </div>
+        )}
+        </div>
+       
+      </>
+    );
+  };
+  
+  export default AreasPage;

@@ -1,5 +1,5 @@
 import React, { SyntheticEvent } from 'react'
-import "./Card.css";
+
 import { Area } from '../../Services/Models/Area/Area';
 import AddReserva from '../Reserva/AddReserva/AddReserva';
 import { ImplementosDto } from '../../Services/Models/Implemento/Implemento';
@@ -16,7 +16,7 @@ onReservaCreate: (e:SyntheticEvent) => void;
 
 const Card : React.FC<Props> = ({id, searchResults,onReservaCreate}: Props) 
 
-:JSX.Element => {
+:React.JSX.Element => {
   return <div
   className="flex flex-col items-center justify-between w-full p-6 bg-slate-100 rounded-lg md:flex-row"
   key={id}

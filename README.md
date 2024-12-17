@@ -60,4 +60,11 @@ npm install react-icons
 npm i react-spinners 
 npm install react-toastify
 npm install react-hook-form yup @hookform/resolvers 
-npm install @mui/material @emotion/react @emotion/styled https://mui.com/material-ui/getting-started/installation/
+npm install @mui/material @emotion/react @emotion/styled https://mui.com/material-ui/getting-started/installation/ 
+npm install @fullcalendar/core @fullcalendar/daygrid @fullcalendar/timegrid @fullcalendar/interaction
+npm install --save @types/react-modal
+npm install --save react-datetime
+npm install sweetalert2 
+npm install jwt-decode
+npm install date-fns
+npm install @heroicons/react
