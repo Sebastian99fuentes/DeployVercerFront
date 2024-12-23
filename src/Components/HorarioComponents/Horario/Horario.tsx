@@ -13,6 +13,7 @@ import { ReservasAreasDto } from '../../../Services/Models/ReservaArea/Reserva';
 import './Horario.css';
 import FullCalendar from '@fullcalendar/react';
 import { getUserId } from '../../../Services/LocalStorage/LocalStorage';
+import Spinners from '../../Spinners/Spinners';
 
 interface Props {
   Id: string;
@@ -22,7 +23,7 @@ interface Props {
 const Horario: React.FC<Props> = ({ Id, nombreArea }: Props): React.JSX.Element => {
   const calendarRef = useRef<FullCalendar | null>(null); // Referencia al calendario
   const [events, setEvents] = useState<ReservasAreasDto[]>([]); // Estado para eventos
- 
+  const [serverError, setServerError] = useState<string | null>(null); // Estado para el error
   const [loading, setLoading] = useState<boolean>(true); // Estado de carga
 
 
@@ -32,13 +33,13 @@ const Horario: React.FC<Props> = ({ Id, nombreArea }: Props): React.JSX.Element 
       try {
         const response = await ReservasAreaAreasGet(Id);
         if (typeof response === 'string') {
-          Swal.fire('Error', `No se pudieron cargar los eventos: ${response}`, 'error');
+          setServerError("Error al conectar con el servidor. Inténtalo más tarde.");
         } else if (Array.isArray(response)) {
           setEvents(response); // Actualiza los eventos
         }
       } catch (error) {
         console.error('Error al cargar los eventos:', error);
-        Swal.fire('Error', 'No se pudo cargar los eventos.', 'error');
+        setServerError("Error al conectar con el servidor. Inténtalo más tarde.");
       } finally {
         setLoading(false);
       }
@@ -86,7 +87,9 @@ const Horario: React.FC<Props> = ({ Id, nombreArea }: Props): React.JSX.Element 
   ): Promise<boolean> => {
     try {
       const response = await ReservasAreaCreate(nombreArea, Id, startStr, endStr);
-  
+      if(typeof serverError !='string'){
+        return false;
+      }
       if (typeof response === 'string') {
         Swal.fire('Error', 'Has alcanzado el límite de reservas por usuario (3).', 'error');
         return false; // Reserva no confirmada
@@ -115,10 +118,25 @@ const Horario: React.FC<Props> = ({ Id, nombreArea }: Props): React.JSX.Element 
   );
 
   if (loading) {
-    return <p>Cargando eventos...</p>; // Mensaje de carga mientras se obtienen los datos
+    return <>
+       <div className="flex flex-wrap justify-center gap-6 p-4">
+       <Spinners /><p>Cargando eventos...</p>
+          </div>
+    </>; // Mensaje de carga mientras se obtienen los datos
+  }
+
+  if(serverError){
+    return <>
+    <div className="flex flex-wrap justify-center gap-6 p-4">
+       <h1 className="text-red-500 text-xl">{serverError}</h1>
+
+       </div>
+ </>; // Mensaje de carga mientras se obtienen los datos
+
   }
 
   return (
+
     <div className="demo-app">
       <div className="demo-app-main">
         <FullCalendar

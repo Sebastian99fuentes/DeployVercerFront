@@ -2,11 +2,14 @@ import { Link } from 'react-router-dom';
 import logo2 from "./logo-reserva.svg";
 import "./Navbar.css";
 import { getUserId } from '../../Services/LocalStorage/LocalStorage';
+import { useAuth } from '../../Services/Context/useAuth';
 
 interface Props {}
 const Navbar = (props: Props) => {
    const user =  getUserId();
-   console.log("eeste es el user", user)
+
+   const {  logout, isLoggedIn } = useAuth();
+
   return (
     <nav className="relative container mx-auto p-6">
       <div className="flex items-center justify-between">
@@ -30,7 +33,7 @@ const Navbar = (props: Props) => {
               Implementos 
             </Link>
           </div>
-            {user === '1' && (
+            {user === '11111111-1111-1111-1111-111111111111' && (
             <div className="hidden font-bold lg:flex">
             <Link to="/Admin" className="text-black hover:text-darkBlue">
             Admin 
@@ -39,20 +42,29 @@ const Navbar = (props: Props) => {
           )}
         </div>
         <div className="hidden lg:flex items-center space-x-6 text-back">
-          <div className="hover:text-darkBlue">
-            <Link to="/Register">
-              Registrate
-            </Link>
+        {isLoggedIn() ? (
+             <button 
+                   onClick={logout} 
+                 className="px-8 py-3 font-bold rounded text-white bg-red-500 hover:opacity-70"
+                 >
+                Salir
+            </button>
+        ) : (
+    // Mostrar opciones de "Regístrate" e "Iniciar Sesión" si el usuario no está logeado
+            <>
+               <div className="hover:text-darkBlue">
+                <Link to="/Register">Regístrate</Link>
+                       </div>
+                       <a 
+                             className="px-8 py-3 font-bold rounded text-white bg-lightGreen hover:opacity-70"
+                         >
+                           <Link to="/Login">Iniciar Sesión</Link>
+                   </a>
+              </>
+           )}
+
           
-            </div>
-          <a
-            className="px-8 py-3 font-bold rounded text-white bg-lightGreen hover:opacity-70"
-          >
-             <Link to="/Login">
-             Iniciar Sesion 
-            </Link>
-          
-          </a>
+
         </div>
       </div>
     </nav>

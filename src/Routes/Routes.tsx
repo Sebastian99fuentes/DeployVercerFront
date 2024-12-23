@@ -28,27 +28,13 @@ export const router = createBrowserRouter([
               </ProtectedRoute>
             ),
           },
-          {path: "implementos", element:   <ProtectedRoute>(<ImplementosPage />)   </ProtectedRoute>},
-          {path: "Horarios/:id", element:   <ProtectedRoute>(<HorarioPage />)   </ProtectedRoute>},
-          {path: "HorariosImp/:id", element:   <ProtectedRoute>(<HorarioImplementoPage />)   </ProtectedRoute>},
-          {path: "areas", element:   <ProtectedRoute>(<AreasPage />)   </ProtectedRoute>},
-          {path: "Admin", element:   <ProtectedRoute>(<CRUDAdminPage />)   </ProtectedRoute>},
+          {path: "implementos", element:(   <ProtectedRoute><ImplementosPage />  </ProtectedRoute>),},
+          {path: "Horarios/:id", element:(   <ProtectedRoute><HorarioPage /> </ProtectedRoute>),},
+          {path: "HorariosImp/:id", element:(   <ProtectedRoute><HorarioImplementoPage />  </ProtectedRoute>),},
+          {path: "areas", element:(   <ProtectedRoute><AreasPage />  </ProtectedRoute>),},
+          {path: "Admin", element: (  <ProtectedRoute><CRUDAdminPage />  </ProtectedRoute>), },
 
 
         ]
-        // path: "/",
-        // element: <App />,
-        // children: [
-        //     {path: "", element: <HomePage />},
-        //     {path: "search", element: <SearchPage />},
-        // {path:"Horarios/:id", element: <HorarioPage />},
-        // {path:"HorariosImp/:id", element: <HorarioImplementoPage />},
-        // {path: "areas", element: <AreasPage />},
-        // {path:"Admin", element: <CRUDAdminPage />},
-        //     {path:"Login", element: <LoginPage />},
-        //     {path:"Register", element: <RegisterPage />},
-        //     
-            
-        // ],
     },
 ]);

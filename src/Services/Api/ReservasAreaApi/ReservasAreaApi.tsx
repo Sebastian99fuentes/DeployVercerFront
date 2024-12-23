@@ -50,7 +50,9 @@ export const ReservasAreaAreasGet = async (id: string): Promise<ReservaArea.Rese
 
 export const ReservaAreasByUserGet = async (): Promise<ReservaArea.ReservasAreasUserDto[] | string> => {
     try{
+
         var UserId =getUserId();
+        console.log("Respuesta del servidor:", UserId);
         const response = await httpClient.get<ReservaArea.ReservasAreasUserDto[]>(`/reservaArea/all-reservaAreaUser/${UserId}`);
         return response.data;
     }catch(error){

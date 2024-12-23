@@ -37,15 +37,14 @@ const AreasPage = () => {
       console.log("Áreas actualizadas:", areas);
     }, [areas]);
   
-    return (
-      <>
-        <div className="flex flex-col min-h-screen">
+    return<>
+      <div className="flex flex-col min-h-screen">
 
         <h1 className="text-center text-4xl font-bold text-gray-800">Áreas Disponibles</h1>
         {loading ? (
           // Mostrar spinner mientras está cargando
           <div className="flex flex-wrap justify-center gap-6 p-4">
-            <Spinners />
+            <Spinners /><p>Cargando Areas...</p>
           </div>
         ) : areas.length > 0 ? (
           // Mostrar áreas si se obtuvieron con éxito
@@ -65,9 +64,7 @@ const AreasPage = () => {
           </div>
         )}
         </div>
-       
-      </>
-    );
+    </> ;
   };
   
   export default AreasPage;

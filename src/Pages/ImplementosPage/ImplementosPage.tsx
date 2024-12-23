@@ -47,7 +47,7 @@ const ImplementosPage = () => {
         {loading ? (
           // Mostrar spinner mientras está cargando
           <div className="flex flex-wrap justify-center gap-6 p-4">
-            <Spinners />
+            <Spinners /><p>Cargando Implementos...</p>
           </div>
         ) : implementos.length > 0 ? (
           // Mostrar implementos si se obtuvieron con éxito

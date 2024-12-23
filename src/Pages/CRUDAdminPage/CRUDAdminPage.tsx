@@ -163,10 +163,6 @@ useEffect(() => {
     </div>
   </div>
   <div className='text-center text-2xl font-bold text-gray-800'>
-    <p> Ver Todas las reservas</p>
-    </div>
-  <AllReservasButtons />
-  <div className='text-center text-2xl font-bold text-gray-800'>
     <p> Crea un Implemento o Area</p>
     </div>
   <FormCRUD />

@@ -71,6 +71,7 @@ const areaSchema = Yup.object().shape({
     } catch (validationError) {
       if (validationError instanceof Yup.ValidationError) {
         validationError.errors.forEach((error) => toast.error(error));
+        
       } else {
         toast.error("Error inesperado al enviar los datos.");
       }

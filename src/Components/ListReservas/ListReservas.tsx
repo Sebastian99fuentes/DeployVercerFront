@@ -7,43 +7,48 @@ import { ReservaAreasByUserGet, ReservaAreasDelete } from '../../Services/Api/Re
 import {  ReservasImplementoUserDto } from '../../Services/Models/ReservaImplementos/ReservaImplementos';
 import { ReservaImplementoByUserGet, ReservaImplementoDelete } from '../../Services/Api/ReservasImplementosApi/ReservasImplementosApi';
 import CardReservasImplementos from './ReservasUserImplementos/CardReservasImplementos';
+import Spinners from '../Spinners/Spinners';
 
 
 const ListReservas = () => {
     const [reservaValues, setReservaValues] = useState<ReservasAreasUserDto[]>([]); // Estado para reservas
     const [reserImplevaValues, setreserImplevaValues] = useState<ReservasImplementoUserDto[]>([]); // Estado para reservas
+    const [serverError, setServerError] = useState<string | null>(null); // Estado para el errors
     const [loading, setLoading] = useState<boolean>(true); // Estado de carga
 
     useEffect(() => {
         const fetchEvents = async () => {
-            setLoading(true);
+
             try {
                 const response = await ReservaAreasByUserGet();
                 console.log("Respuesta del servidor:", response);
 
                 if (typeof response === 'string') {
-                    Swal.fire('Error', `No se pudieron cargar las reservas: ${response}`, 'error');
+                    // Swal.fire('Error', `No se pudieron cargar las reservas: ${response}`, 'error');
+                    setServerError("Error al conectar con el servidor. Inténtalo más tarde.");
                 } else if (Array.isArray(response)) {
                     setReservaValues(response); // Actualiza las reservas
                 }
             } catch (error) {
                 console.error('Error al cargar las reservas:', error);
-                Swal.fire('Error', 'No se pudo cargar las reservas.', 'error');
-            } finally {
-                setLoading(false);
-            }
-
+                // Swal.fire('Error', 'No se pudo cargar las reservas.', 'error');
+                setServerError("Error al conectar con el servidor. Inténtalo más tarde.");
+            } 
             try{
               const response = await ReservaImplementoByUserGet();
               console.log("Respuesta del servidor:", response);
               if (typeof response === 'string') {
-                Swal.fire('Error', `No se pudieron cargar las reservas: ${response}`, 'error');
+                // Swal.fire('Error', `No se pudieron cargar las reservas: ${response}`, 'error');
             } else if (Array.isArray(response)) {
               setreserImplevaValues(response); // Actualiza las reservas
             }
             }catch(error){
               console.error('Error al cargar las reservas:', error);
-              Swal.fire('Error', 'No se pudo cargar las reservas.', 'error');
+            //   Swal.fire('Error', 'No se pudo cargar las reservas.', 'error');
+              setServerError("Error al conectar con el servidor. Inténtalo más tarde.");
+            }
+            finally {
+                setLoading(false);
             }
         };
 
@@ -124,7 +129,10 @@ const ListReservas = () => {
     </h2>
     <div className="flex flex-wrap justify-center gap-6 p-4">
         {loading ? (
-            <p className="text-center">Cargando reservas...</p>
+             <div className="flex flex-wrap justify-center gap-6 p-4">
+             <Spinners />
+             <p className="text-center">Cargando reservas...</p>
+           </div>
         ) : reservaValues.length > 0 ? (
             reservaValues.map((reserva) => (
                 <CardReservas
@@ -134,9 +142,13 @@ const ListReservas = () => {
                 />
             ))
         ) : (
-            <h3 className="mb-3 mt-3 text-xl font-semibold text-center md:text-xl">
-                Ninguna reserva
-            </h3>
+            <div className="flex flex-wrap justify-center gap-6 p-4">
+            {serverError ? (
+              <h1 className="text-red-500 text-xl">{serverError}</h1>
+            ) : (
+              <h1>  Ninguna reserva disponibles</h1>
+            )}
+          </div>
         )}
     </div>
 
@@ -144,8 +156,13 @@ const ListReservas = () => {
          Implementos Reservados
     </h2>
     <div className="flex flex-wrap justify-center gap-6 p-4">
-        {loading ? (
+    {loading ? (
+          // Mostrar spinner mientras está cargando
+          <div className="flex flex-wrap justify-center gap-6 p-4">
+            <Spinners />
             <p className="text-center">Cargando reservas...</p>
+          </div>
+           
         ) : reserImplevaValues.length > 0 ? (
             reserImplevaValues.map((reservas) => (
                 
@@ -156,21 +173,17 @@ const ListReservas = () => {
                 />
             ))
         ) : (
-            <h3 className="mb-3 mt-3 text-xl font-semibold text-center md:text-xl">
-                Ninguna reserva
-            </h3>
+            <div className="flex flex-wrap justify-center gap-6 p-4">
+            {serverError ? (
+              <h1 className="text-red-500 text-xl">{serverError}</h1>
+            ) : (
+              <h1>  Ninguna reserva disponibles</h1>
+            )}
+          </div>
         )}
     </div>
-    
-    
-    
-
-      </div>
-    
-    
+      </div>    
     </>
-
-
     );
 };
 

@@ -53,7 +53,7 @@ const registerUser = async (
                 localStorage.setItem("user",JSON.stringify(userObj))
                 setToken(res?.data.token!)
                 setUser(userObj)
-                toast.success("login Succes!")
+                toast.success("Bienvenido")
                 navigate("/search")
             }
         }).catch((e)=> toast.warning("server error occured"))
@@ -78,7 +78,7 @@ const loginUser = async (
                 localStorage.setItem("user",JSON.stringify(userObj))
                 setToken(res?.data.token!)
                 setUser(userObj)
-                toast.success("login Succes!")
+                toast.success("Bienvenido!")
                 navigate("/search")
             }
         }).catch((e)=> toast.warning("server error occured"))

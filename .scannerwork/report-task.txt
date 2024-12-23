@@ -1,0 +1,6 @@
+projectKey=TesisFront
+serverUrl=http://localhost:9000
+serverVersion=10.6.0.92116
+dashboardUrl=http://localhost:9000/dashboard?id=TesisFront
+ceTaskId=42e29cf4-a8e2-41e8-bc43-849017972e8b
+ceTaskUrl=http://localhost:9000/api/ce/task?id=42e29cf4-a8e2-41e8-bc43-849017972e8b
