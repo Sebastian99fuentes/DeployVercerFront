@@ -12,8 +12,7 @@ import { ReservasAreaAreasGet, ReservasAreaCreate } from '../../../Services/Api/
 import { ReservasAreasDto } from '../../../Services/Models/ReservaArea/Reserva';
 import './Horario.css';
 import FullCalendar from '@fullcalendar/react';
-import { getUserId } from '../../../Services/LocalStorage/LocalStorage';
-import Spinners from '../../Spinners/Spinners';
+
 
 interface Props {
   Id: string;
@@ -23,36 +22,34 @@ interface Props {
 const Horario: React.FC<Props> = ({ Id, nombreArea }: Props): React.JSX.Element => {
   const calendarRef = useRef<FullCalendar | null>(null); // Referencia al calendario
   const [events, setEvents] = useState<ReservasAreasDto[]>([]); // Estado para eventos
-  const [serverError, setServerError] = useState<string | null>(null); // Estado para el error
   const [loading, setLoading] = useState<boolean>(true); // Estado de carga
 
 
-  useEffect(() => {
-    const fetchEvents = async () => {
-      setLoading(true);
-      try {
-        const response = await ReservasAreaAreasGet(Id);
-        if (typeof response === 'string') {
-          setServerError("Error al conectar con el servidor. Inténtalo más tarde.");
-        } else if (Array.isArray(response)) {
-          setEvents(response); // Actualiza los eventos
+
+useEffect(() => {
+      const fetchEvents = async () => {
+        setLoading(true);
+        try {
+          const response = await ReservasAreaAreasGet(Id);
+          if (typeof response === 'string') {
+            Swal.fire('Error', `No se pudieron cargar los eventos: ${response}`, 'error');
+          } else if (Array.isArray(response)) {
+            setEvents(response); // Actualiza los eventos
+          }
+        } catch (error) {
+          console.error('Error al cargar los eventos:', error);
+          Swal.fire('Error', 'No se pudo cargar los eventos.', 'error');
+        } finally {
+          setLoading(false);
         }
-      } catch (error) {
-        console.error('Error al cargar los eventos:', error);
-        setServerError("Error al conectar con el servidor. Inténtalo más tarde.");
-      } finally {
-        setLoading(false);
-      }
-    };
+      };
+  
+      fetchEvents();
+    }, []);
 
-    fetchEvents();
-  }, []);
-
-  const handleDateSelect = (selectInfo: DateSelectArg) => {
+ const handleDateSelect = (selectInfo: DateSelectArg) => {
     const calendarApi = selectInfo.view.calendar;
-   var AppUserId =getUserId();
-            
-            console.log("esta es id user",AppUserId)
+
     Swal.fire({
       title: 'Confirmar Reserva',
       text: '¿Estás seguro de reservar este horario?',
@@ -85,23 +82,22 @@ const Horario: React.FC<Props> = ({ Id, nombreArea }: Props): React.JSX.Element 
     startStr: string,
     endStr: string
   ): Promise<boolean> => {
-    try {
-      const response = await ReservasAreaCreate(nombreArea, Id, startStr, endStr);
-      if(typeof serverError !='string'){
-        return false;
-      }
-      if (typeof response === 'string') {
-        Swal.fire('Error', 'Has alcanzado el límite de reservas por usuario (3).', 'error');
-        return false; // Reserva no confirmada
-      } else {
-        Swal.fire('Éxito', 'Reserva confirmada con éxito.', 'success');
-        return true; // Reserva confirmada
-      }
-    } catch (error) {
-      console.error('Error al confirmar la reserva:', error);
-      Swal.fire('Error', 'No se pudo completar la reserva. Intenta nuevamente.', 'error');
-      return false; // Reserva no confirmada
-    }
+     try {
+            const response = await   ReservasAreaCreate(nombreArea, Id, startStr, endStr);
+
+
+            if (typeof response === 'string') {
+              Swal.fire('Error', 'Has alcanzado el límite de reservas por usuario (3).', 'error');
+              return false; // Reserva no confirmada
+            } else {
+              Swal.fire('Éxito', 'Reserva confirmada con éxito.', 'success');
+              return true; // Reserva confirmada
+            }
+          } catch (error) {
+            console.error('Error al confirmar la reserva:', error);
+            Swal.fire('Error', 'No se pudo completar la reserva. Intenta nuevamente.', 'error');
+            return false; // Reserva no confirmada
+          }
   };
   
 
@@ -118,21 +114,7 @@ const Horario: React.FC<Props> = ({ Id, nombreArea }: Props): React.JSX.Element 
   );
 
   if (loading) {
-    return <>
-       <div className="flex flex-wrap justify-center gap-6 p-4">
-       <Spinners /><p>Cargando eventos...</p>
-          </div>
-    </>; // Mensaje de carga mientras se obtienen los datos
-  }
-
-  if(serverError){
-    return <>
-    <div className="flex flex-wrap justify-center gap-6 p-4">
-       <h1 className="text-red-500 text-xl">{serverError}</h1>
-
-       </div>
- </>; // Mensaje de carga mientras se obtienen los datos
-
+    return <p>Cargando eventos...</p>; // Mensaje de carga mientras se obtienen los datos
   }
 
   return (
@@ -145,8 +127,9 @@ const Horario: React.FC<Props> = ({ Id, nombreArea }: Props): React.JSX.Element 
           headerToolbar={{
             left: 'prev,next today',
             center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay',
+            right: 'timeGridWeek,timeGridDay',
           }}
+          locale="es"
           eventContent={renderEventContent}
           slotDuration="01:00:00"
           slotMinTime="08:00:00"
@@ -159,8 +142,7 @@ const Horario: React.FC<Props> = ({ Id, nombreArea }: Props): React.JSX.Element 
           editable={false}
           selectMirror={true}
           dayMaxEvents={true}
-          weekends={true}
-          locale="es"
+          weekends={true}    
           selectAllow={handleSelectAllow}
           validRange={{
             start: new Date().toISOString().split('T')[0],

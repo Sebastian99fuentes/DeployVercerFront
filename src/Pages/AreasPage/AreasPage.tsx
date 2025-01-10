@@ -12,10 +12,12 @@ const AreasPage = () => {
     const [loading, setLoading] = useState<boolean>(true); // Estado para el spinner
   
     useEffect(() => {
+      
         const fetchAreas = async () => {
           setLoading(true); // Inicia el spinner
           try {
             const result = await AreasGet(); // Llama a la API
+            
             if (typeof result === "string") {
               setServerError(result); // Maneja errores en formato string
             } else if (Array.isArray(result)) {
@@ -28,6 +30,8 @@ const AreasPage = () => {
           } finally {
             setLoading(false); // Detén el spinner siempre, sea éxito o error
           }
+
+          
         };
       
         fetchAreas(); // Ejecuta la función
@@ -35,6 +39,7 @@ const AreasPage = () => {
       
     useEffect(() => {
       console.log("Áreas actualizadas:", areas);
+    
     }, [areas]);
   
     return<>
@@ -68,3 +73,4 @@ const AreasPage = () => {
   };
   
   export default AreasPage;
+

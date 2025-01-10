@@ -67,10 +67,10 @@ export const AreaDelete = async (id: string): Promise<string> => {
     }catch(error){
         if(axios.isAxiosError(error)){
             console.error("Error en la API:", error.message);
-            if(error.status==500){
+            if(error.status=== 500){
                 alert("No se puede eliminar el área porque tiene reservas asociadas.");
             }
-            if(error.status ==401){
+            if(error.status === 401){
                 alert("No se puede eliminar el área ");
             }
             return error.message;

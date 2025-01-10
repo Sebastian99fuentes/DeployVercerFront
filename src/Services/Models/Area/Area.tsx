@@ -1,4 +1,4 @@
-import { CommentDto } from "../Comments/Comments";
+
 
 export interface Area {
     id: string;
@@ -19,5 +19,5 @@ export interface Areas {
     nombre: string;
     ubicacion: string;
     descripcion: string;
-    comments: CommentDto[]; // Lista de comentarios
+
 } 
