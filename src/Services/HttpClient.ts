@@ -2,7 +2,7 @@ import axios from "axios";
 
 const httpClient = axios.create({
  
-    baseURL: "https://deployrailwayapi-production.up.railway.app/api/", // Define la URL base
+    baseURL: "https://deployrailwayapi-production.up.railway.app/api", // Define la URL base
     timeout: 5000, // Tiempo máximo de espera
     headers: {
         "Authorization": "Bearer " + localStorage.getItem("token"), // Token de autenticación
