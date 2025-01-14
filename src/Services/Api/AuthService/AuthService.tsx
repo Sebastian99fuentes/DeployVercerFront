@@ -3,7 +3,7 @@ import { UserProfileToken } from "../../Models/Login/Logins";
 import { handleError } from "../../../Helpers/ErrorHandler";
 
 
-const api = "http://localhost:5150/api/"
+const api = "https://deployrailwayapi-production.up.railway.app/api/";
 
 export const loginAPI = async (username: string, password: string) => {
     try{

@@ -23,7 +23,7 @@ const validation = Yup.object().shape({
     .matches(/\d/, 'La contraseña debe tener al menos un número')
     .matches(/[!@#$%^&*(),.?":{}|<>]/, 'La contraseña debe tener al menos un carácter especial'),
 
-    email: Yup.string().required("Email is required"),
+    email: Yup.string().required("Corre es requerido"),
 })
 
 const RegisterPage = (props: Props) => {
