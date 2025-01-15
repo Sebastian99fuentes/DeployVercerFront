@@ -3,6 +3,7 @@ import * as Area from "../../Models/Area/Area";
 import httpClient from "../../HttpClient";
 
 
+const api = "https://deployrailwayapi-production.up.railway.app/api/";
 
 export const AreaCreate = async (nombre: string, ubicacion: string, descripcion: string): Promise<Area.CreateAreaRequestDto | string> => {
     try {
@@ -14,7 +15,9 @@ export const AreaCreate = async (nombre: string, ubicacion: string, descripcion:
         }
             console.log(data)
         // Realiza la solicitud POST incluyendo el cuerpo con los datos
-        const response = await httpClient.post<Area.CreateAreaRequestDto>("/area/create-area", data);
+        // const response = await httpClient.post<Area.CreateAreaRequestDto>("/area/create-area", data);
+        const response = await axios.post<Area.CreateAreaRequestDto>(`${api}area/create-area`, data);
+
         console.log(response)
         // Devuelve los datos de la respuesta
         return response.data;
