@@ -13,7 +13,7 @@ type RegisterFormsInputs = {
 }
 
 const validation = Yup.object().shape({
-    userName: Yup.string().required("Username is required"),
+    userName: Yup.string().required("Usuario  es obligatoria"),
     password: Yup
     .string()
     .required('La contraseña es obligatoria')
@@ -23,7 +23,7 @@ const validation = Yup.object().shape({
     .matches(/\d/, 'La contraseña debe tener al menos un número')
     .matches(/[!@#$%^&*(),.?":{}|<>]/, 'La contraseña debe tener al menos un carácter especial'),
 
-    email: Yup.string().required("Corre es requerido"),
+    email: Yup.string().required("Correo es requerido"),
 })
 
 const RegisterPage = (props: Props) => {
