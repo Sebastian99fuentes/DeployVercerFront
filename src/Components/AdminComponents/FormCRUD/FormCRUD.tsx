@@ -82,10 +82,10 @@ const areaSchema = Yup.object().shape({
     
     <div className="cuerpo">
     <div className="cardCrud">
-      <h1>Crear {formType === "implemento" ? "Implemento" : "Área"}</h1>
+      <h1>Crear {formType === "implemento" ? "Implemento Deportivo" : "Espacio Físico"}</h1>
       <div className="button-group">
-        <button onClick={() => setFormType("implemento")}>Crear Implemento</button>
-        <button onClick={() => setFormType("area")}>Crear Área</button>
+        <button onClick={() => setFormType("implemento")}>Crear Implemento Deportivo</button>
+        <button onClick={() => setFormType("area")}>Crear Espacio Físico</button>
       </div>
 
       <form onSubmit={handleSubmit}>

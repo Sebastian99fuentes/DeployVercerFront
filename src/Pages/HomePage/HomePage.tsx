@@ -12,8 +12,8 @@ const HomePage = () => {
         <div className="container mx-auto px-8 text-center lg:px-32">
           <h2 className="text-4xl font-bold mb-6">¿Quiénes Somos?</h2>
           <p className="text-lg text-gray-600">
-            Somos una plataforma dedicada a optimizar el proceso de reserva de implementos 
-            y áreas deportivas. Nuestro objetivo es brindarte comodidad, rapidez y certeza 
+            Somos una plataforma dedicada a optimizar el proceso de reserva de implementos deportivos
+            y espacios físicos. Nuestro objetivo es brindarte comodidad, rapidez y certeza 
             en la disponibilidad de los recursos que necesitas para practicar tus deportes 
             favoritos.
           </p>
@@ -36,7 +36,7 @@ const HomePage = () => {
         </div>
         <h3 className="text-2xl font-bold">Busca</h3>
         <p className="text-gray-600 mt-2">
-          Explora nuestras opciones de áreas deportivas e implementos disponibles en tu localidad.
+          Explora nuestras opciones de Espacios Físicos e implementos deportivos disponibles en tu localidad.
         </p>
       </div>
 
@@ -76,7 +76,7 @@ const HomePage = () => {
             ¿Listo para empezar?
           </h2>
           <p className="text-lg text-white mb-10">
-            Ahorra tiempo y asegura tu lugar en las mejores áreas deportivas con solo unos clics.
+            Ahorra tiempo y asegura tu lugar con solo unos clics.
           </p>
           <a
             href="/register"

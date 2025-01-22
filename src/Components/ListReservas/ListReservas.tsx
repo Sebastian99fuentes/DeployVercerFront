@@ -125,7 +125,7 @@ const ListReservas = () => {
       <div className="flex flex-col min-h-screen">
 
       <h2 className="mb-3 mt-3 text-3xl font-semibold text-center md:text-4xl">
-         Áreas Reservadas
+      Espacios Físicos Reservados
     </h2>
     <div className="flex flex-wrap justify-center gap-6 p-4">
         {loading ? (
@@ -153,7 +153,7 @@ const ListReservas = () => {
     </div>
 
     <h2 className="mb-3 mt-3 text-3xl font-semibold text-center md:text-4xl">
-         Implementos Reservados
+         Implementos Deportivos Reservados
     </h2>
     <div className="flex flex-wrap justify-center gap-6 p-4">
     {loading ? (

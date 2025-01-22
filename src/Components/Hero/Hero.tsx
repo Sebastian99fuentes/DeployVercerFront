@@ -11,10 +11,10 @@ const Hero = (props: Props) => {
     {/* Texto del Hero */}
     <div className="flex flex-col space-y-6 mb-12 lg:mb-0 lg:w-1/2 lg:pr-10">
       <h1 className="text-4xl font-bold text-center lg:text-5xl lg:text-left">
-        Reserva de Implementos y Áreas Deportivas
+        Reserva de Implementos Deportivos y  Espacios Físicos
       </h1>
       <p className="text-lg text-center text-gray-600 lg:text-left">
-        Organiza tu tiempo y accede fácilmente a las mejores canchas y equipos 
+        Organiza tu tiempo y accede fácilmente a las mejores instalaciones y equipos 
         sin preocupaciones. ¡Optimiza tu experiencia deportiva!
       </p>
       <div className="flex justify-center lg:justify-start">

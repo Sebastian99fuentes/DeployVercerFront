@@ -43,7 +43,7 @@ const ImplementosPage = () => {
 
        <div className="flex flex-col min-h-screen">
 
-       <h1 className="text-center text-4xl font-bold text-gray-800">Implementos Disponibles</h1>
+       <h1 className="text-center text-4xl font-bold text-gray-800">Implementos Deportivos Disponibles</h1>
         {loading ? (
           // Mostrar spinner mientras está cargando
           <div className="flex flex-wrap justify-center gap-6 p-4">
@@ -62,7 +62,7 @@ const ImplementosPage = () => {
             {serverError ? (
               <h1 className="text-red-500 text-xl">{serverError}</h1>
             ) : (
-              <h1>No hay implementos disponibles</h1>
+              <h1>No hay implementos Deportivos disponibles</h1>
             )}
           </div>
         )}

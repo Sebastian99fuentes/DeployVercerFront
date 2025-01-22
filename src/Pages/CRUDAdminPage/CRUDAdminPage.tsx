@@ -159,11 +159,11 @@ useEffect(() => {
   return<>
   <div className='crud'>
     <div className='text-center text-2xl font-bold text-gray-800'>
-    <p> Crea, modifica y elimina Implementos Deportivos y Areas Deportivas</p>
+    <p> Crea, modifica y elimina  Implementos Deportivos y Espacios Físicos</p>
     </div>
   </div>
   <div className='text-center text-2xl font-bold text-gray-800'>
-    <p> Crea un Implemento o Area</p>
+    <p> Crea un Implemento Deportivo o Espacio Físico</p>
     </div>
   <FormCRUD />
   <div className='text-center text-2xl font-bold text-gray-800'>
@@ -200,7 +200,7 @@ useEffect(() => {
 
 
 <div className='text-center text-2xl font-bold text-gray-800'>
-    <p> modifica y elimina Areas deportivas</p>
+    <p> modifica y elimina Espacios Físicos</p>
     </div>
         {loading ? (
           // Mostrar spinner mientras está cargando

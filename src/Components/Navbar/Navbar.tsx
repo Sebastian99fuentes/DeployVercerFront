@@ -33,12 +33,12 @@ const Navbar = (props: Props) => {
           </div>
           <div className="hidden font-bold lg:flex">
             <Link to="/Areas" className="text-black hover:text-darkBlue">
-              Areas Deportivas
+            Reservar Espacios Físicos
             </Link>
           </div>
           <div className="hidden font-bold lg:flex">
             <Link to="/Implementos" className="text-black hover:text-darkBlue">
-              Implementos 
+            Reservar  Implementos Deportivos
             </Link>
           </div>
           {user === '11111111-1111-1111-1111-111111111111' && (
