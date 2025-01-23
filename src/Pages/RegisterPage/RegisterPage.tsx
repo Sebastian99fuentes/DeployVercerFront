@@ -61,7 +61,7 @@ const RegisterPage = (props: Props) => {
                 placeholder="Nombre Usuario"
                 {...register("userName")}
               />
-              {errors.userName? <p className='text-white'>{errors.userName.message}</p>:""}
+              {errors.userName? <p className='text-black'>{errors.userName.message}</p>:""}
             </div>
             <div>
               <label
@@ -77,7 +77,7 @@ const RegisterPage = (props: Props) => {
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 {...register('password')}
               />
-              {errors.password? <p className='text-white'>{errors.password.message}</p>:""}
+              {errors.password? <p className='text-black'>{errors.password.message}</p>:""}
             </div>
             <div>
               <label
@@ -93,7 +93,7 @@ const RegisterPage = (props: Props) => {
                 placeholder="correo"
                 {...register("email")}
               />
-              {errors.email? <p className='text-white'>{errors.email.message}</p>:""}
+              {errors.email? <p className='text-black'>{errors.email.message}</p>:""}
             </div>
             <div className="flex items-center justify-between">
             </div>

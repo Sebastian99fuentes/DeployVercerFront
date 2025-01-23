@@ -146,7 +146,7 @@ const ListReservas = () => {
             {serverError ? (
               <h1 className="text-red-500 text-xl">{serverError}</h1>
             ) : (
-              <h1>  Ninguna reserva disponibles necesitas hacer  una reserva</h1>
+              <h1>  Ninguna reserva disponible, necesitas realizar una reserva</h1>
             )}
           </div>
         )}
@@ -177,7 +177,7 @@ const ListReservas = () => {
             {serverError ? (
               <h1 className="text-red-500 text-xl">{serverError}</h1>
             ) : (
-              <h1>  Ninguna reserva disponibles necesitas hacer  una reserva</h1>
+              <h1>  Ninguna reserva disponible, necesitas realizar una reserva</h1>
             )}
           </div>
         )}
