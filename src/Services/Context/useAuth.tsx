@@ -45,10 +45,12 @@ const registerUser = async (
         await registerAPI(email,username,password).then((res)=>{
             if(res){
                 localStorage.setItem("token",res?.data.token);
+                const token = res?.data.token;
+                const decodedToken: any = jwtDecode(token);
                 const userObj = {
                     userName: res?.data.userName,
                     email: res?.data.email,
-                    id: res?.data.id
+                    userId: decodedToken.userId, // Extraído del token
                 }
                 localStorage.setItem("user",JSON.stringify(userObj))
                 setToken(res?.data.token!)

@@ -61,8 +61,8 @@ const Navbar = (props: Props) => {
         <div className={`lg:hidden ${isMenuOpen ? 'block' : 'hidden'} absolute top-16 left-0 w-full bg-white shadow-lg`}>
           <div className="flex flex-col items-center">
             <Link to="/search" className="py-2 px-4 text-black hover:text-darkBlue">Mis Reservas</Link>
-            <Link to="/Areas" className="py-2 px-4 text-black hover:text-darkBlue">Areas Deportivas</Link>
-            <Link to="/Implementos" className="py-2 px-4 text-black hover:text-darkBlue">Implementos</Link>
+            <Link to="/Areas" className="py-2 px-4 text-black hover:text-darkBlue"> Reservar Espacios Físicos</Link>
+            <Link to="/Implementos" className="py-2 px-4 text-black hover:text-darkBlue"> Reservar  Implementos Deportivos</Link>
             {user === '11111111-1111-1111-1111-111111111111' && (
               <Link to="/Admin" className="py-2 px-4 text-black hover:text-darkBlue">Admin</Link>
             )}
