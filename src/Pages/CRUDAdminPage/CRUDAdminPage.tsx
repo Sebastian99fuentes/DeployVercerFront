@@ -157,10 +157,10 @@ useEffect(() => {
 
 
   return<>
-  <div className='crud'>
-    <div className='text-center text-2xl font-bold text-gray-800'>
+      <div className='text-center text-2xl font-bold text-gray-800'>
     <p> Crea, modifica y elimina  Implementos Deportivos y Espacios Físicos</p>
     </div>
+  <div className='crud'>
   </div>
   <div className='text-center text-2xl font-bold text-gray-800'>
     <p> Crea un Implemento Deportivo o Espacio Físico</p>

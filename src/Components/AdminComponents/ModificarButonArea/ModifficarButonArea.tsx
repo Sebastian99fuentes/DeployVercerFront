@@ -39,6 +39,7 @@ const ModificarButonArea = ({ area }: Props) => {
             }
         });
     }
+    
 const handleUpdate = async (nombre: string, descripcion: string, ubicacion: string) => {
     setIsUpdating(true);
     try {

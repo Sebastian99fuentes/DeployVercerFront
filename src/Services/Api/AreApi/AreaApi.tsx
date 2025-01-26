@@ -94,9 +94,9 @@ export const AreaUpdate = async (id: string, nombre: string, ubicacion: string, 
 
        // Crear un nuevo objeto con los datos actualizados
        const updatedArea = {
-        nombre,
-        ubicacion,
-        descripcion
+        nombre:nombre,
+        ubicacion: ubicacion,
+        descripcion: descripcion
     };
     console.log(updatedArea)
         // Enviar la solicitud POST para actualizar los datos
