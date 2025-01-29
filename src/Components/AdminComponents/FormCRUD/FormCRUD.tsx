@@ -92,7 +92,7 @@ const areaSchema = Yup.object().shape({
         {formType === "implemento" ? (
           <>
             <div>
-              <label>nombre:</label>
+              <label>Nombre:</label>
               <input
                 type="text"
                 name="nombreImple"
