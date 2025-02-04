@@ -167,7 +167,7 @@ useEffect(() => {
     </div>
   <FormCRUD />
   <div className='text-center text-2xl font-bold text-gray-800'>
-    <p> modifica y elimina Implementos Deportivos</p>
+    <p> Modifica y elimina Implementos Deportivos</p>
     </div>
     {loading ? (
           // Mostrar spinner mientras está cargando
