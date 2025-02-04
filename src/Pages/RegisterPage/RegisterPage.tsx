@@ -104,7 +104,7 @@ const RegisterPage = (props: Props) => {
                 {errors.email ? <p className='text-black'>{errors.email.message}</p> : ""}
               </div>
               <div className="flex items-center justify-between"></div>
-              <button className="buttonCrud" type="submit">Registrate</button>
+              <button className="buttonCrud" type="submit">Regístrate</button>
             </form>
           </div>
         </div>
