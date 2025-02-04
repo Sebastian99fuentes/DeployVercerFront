@@ -167,7 +167,7 @@ useEffect(() => {
     </div>
   <FormCRUD />
   <div className='text-center text-2xl font-bold text-gray-800'>
-    <p> modifica y elimina implementos deportivos</p>
+    <p> modifica y elimina Implementos Deportivos</p>
     </div>
     {loading ? (
           // Mostrar spinner mientras está cargando
@@ -191,7 +191,7 @@ useEffect(() => {
             {serverError ? (
               <h1 className="text-red-500 text-xl">{serverError}</h1>
             ) : (
-              <h1>No hay implementos disponibles</h1>
+              <h1>No hay Implementos Deportivos disponibles</h1>
             )}
           </div>
      )}
@@ -200,7 +200,7 @@ useEffect(() => {
 
 
 <div className='text-center text-2xl font-bold text-gray-800'>
-    <p> modifica y elimina Espacios Físicos</p>
+    <p> Modifica y elimina Espacios Físicos</p>
     </div>
         {loading ? (
           // Mostrar spinner mientras está cargando
