@@ -130,7 +130,7 @@ const areaSchema = Yup.object().shape({
               />
             </div>
             <div>
-              <label>descripcion:</label>
+              <label>Descripción:</label>
               <textarea
                 name="Descripcion"
                 value={area.Descripcion}
