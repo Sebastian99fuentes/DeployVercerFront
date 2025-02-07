@@ -82,7 +82,7 @@ const LoginPage = (props: Props) => {
                   href="/Register"
                   className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                 >
-                  Registrate
+                  Regístrate
                 </a>
               </p>
             </form>
